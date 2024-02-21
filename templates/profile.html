@@ -1,0 +1,151 @@
+{% extends 'base.html'%}
+{% load static %}  
+{% block body %}
+
+
+<div class="row">
+<div class="col-md-12">
+   <div class="profile-header">
+      <div class="row align-items-center">
+         <div class="col-auto profile-image">
+            
+            <a href="#">
+            <img class="rounded-circle" alt="User Image" src="/{{user.profile_pic}}">
+            </a>
+         </div>
+         <div class="col ml-md-n2 profile-user-info">
+            <h4 class="user-name mb-0">{{user.first_name}}&nbsp;{{user.middle_name}}</h4> 
+            <h6 class="text-muted"> 
+               {% if user.user_type == '1' %}
+               <p class="text-muted mb-0">Admin</p>
+               {% elif user.user_type == '2' %}
+               <p class="text-muted mb-0">Manager</p>
+               {% elif user.user_type == '3' %}
+               <p class="text-muted mb-0">Doctor</p>
+               {% elif user.user_type == '4' %}
+               <p class="text-muted mb-0">Nurse</p>
+               {% elif user.user_type == '5' %}
+               <p class="text-muted mb-0">Receptionist</p>
+               {% else %}
+               <p class="text-muted mb-0">Lab Technician</p>
+               {% endif %} 
+             </h6>
+            <div class="user-Location"><i class="fas fa-map-marker-alt"></i> {{user.address}}</div>
+           
+         </div>
+        
+      </div>
+   </div>
+   <div class="profile-menu">
+      <ul class="nav nav-tabs nav-tabs-solid">
+         <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#per_details_tab">About</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#profile_tab">Change Profile</a>
+         </li>
+      </ul>
+   </div>
+   <div class="tab-content profile-tab-cont">
+      <div class="tab-pane fade show active" id="per_details_tab">
+         <div class="row">
+            <div class="col-lg-9">
+               <div class="card">
+                  <div class="card-body">
+                    
+                     <div class="row">
+                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
+                        <p class="col-sm-9"> {{user.first_name}}&nbsp;{{user.middle_name}} 
+                        </p>
+                     </div>
+                     <div class="row">
+                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Date of Birth</p>
+                        <p class="col-sm-9">{{user.dob}}</p>
+                     </div>
+                     <div class="row">
+                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email ID</p>
+                        <p class="col-sm-9">{{user.email}}</p>
+                        </div>
+                     <div class="row">
+                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile</p>
+                        <p class="col-sm-9">{{user.phone}}</p>
+                     </div>
+                     <div class="row">
+                        <p class="col-sm-3 text-muted text-sm-right mb-0">Address</p>
+                        <p class="col-sm-9 mb-0">{{user.address}},<br>
+                           
+                           Oromia,<br>
+                           Ethiopia.
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3">
+               <div class="card">
+                  <div class="card-body">
+                     <h5 class="card-title d-flex justify-content-between">
+                        <span>Account Status</span>
+                       
+                     </h5>
+                     <button class="btn btn-success" type="button"><i class="fe fe-check-verified"></i> Active</button>
+                  </div>
+               </div>
+              
+            </div>
+         </div>
+      </div>
+      <div id="password_tab" class="tab-pane fade">
+         <div class="card align-items-center">
+            <div class="card-body">
+               <h3 class="card-title" style="font-family:Nyala;">Change Password</h3><hr>
+               <div class="row">
+                  <div class="col-md-12 col-lg-12">
+                     <form method="POST" action="{% url 'change_password' %}" enctype="multipart/form-data">
+                        {% csrf_token %}                   
+                        <div class="form-group">
+                           <label>Old Password</label>
+                           <input type="password" class="form-control" name="old_password">
+                        </div>
+                        <div class="form-group">
+                           <label>New Password</label>
+                           <input type="password" class="form-control" name="new_password">
+                        </div>
+                        <div class="form-group">
+                           <label>Confirm Password</label>
+                           <input type="password" class="form-control" name="confirm_password">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="profile_tab" class="tab-pane fade">
+         <div class="card">
+            <div class="card-body">
+               <h5 class="card-title">Change profile</h5>
+               <div class="row">
+                  <div class="col-md-6 col-lg-3">
+                     <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
+                        {% csrf_token %}                   
+                        <div class="form-group">           
+                         <label>salect your profile</label>
+                           <input type="file" class="form-control" name="profile_pic">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+
+{% endblock %}

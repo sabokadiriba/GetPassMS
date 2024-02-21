@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="page-header">
+    <div class="row align-items-center">
+       <div class="col">
+          <h3 class="page-title">Invitations</h3>
+           {% include 'includes/messages.html' %}
+          <ul class="breadcrumb">
+            <input type="text" id="filterInput" class="" placeholder="Enter ID to filter">
+            <button onclick="filterTable()">Filter</button>
+          </ul>
+       </div>
+
+    </div>
+ </div>
+ <div class="row">
+   <div class="col-sm-12">
+      <div class="card card-table">
+         <div class="card-body">
+            <div id="tableContainer" style="display: none;"></div>
+            <div class="table-responsive">
+               <table id="mytable" class="table table-hover table-center mb-0 datatable">
+                  <thead>
+                     <tr>
+                        <th>ID</th>
+                        <th> Guest Name</th> 
+                        <th>Responsible Person</th> 
+                        <th> Date of Visit</th> 
+                        <th> Status</th>    
+                        <th> Details</th>
+                                       
+                     </tr>
+                  </thead>
+                  <tbody>
+       
+                           {% for i in invitation_badge %}
+                         
+                              <tr class="invitationRow">
+                                 <td>{{i.badge_id.id}}</td>
+                                 <td>{{i.badge_id.guest_name}}</td>
+                                 <td>{{i.badge_id.responsible_person}}</td>
+                                 <td>{{i.badge_id.arrival_date}}</td>
+                                 <td>{{i.badge_id.approval_status}}</td>
+                                 <td class="text-right">
+                                    <div>
+                                       <a href="{% url 'badge_deteil2' i.id %}" class="btn btn-success mr-2">
+                                       <i class="">Ckech</i>
+                                       </a>
+                                    </div>
+                                 </td>
+                              </tr>
+                      
+                     {% endfor %}
+                     {% for i in request_badge %}
+                     
+                        <tr class="invitationRow">
+                           <td>{{i.badge_id.id}}</td>
+                           <td>{{i.badge_id.guest_name}}</td>
+                           <td>{{i.badge_id.responsible_person}}</td>
+                           <td>{{i.badge_id.date_of_visit}}</td>
+                           <td>{{i.badge_id.approval_status}}</td>
+                           <td class="text-right">
+                              <div>
+                                 <a href="{% url 'badge_deteil' i.id %}" class="btn btn-success mr-2">
+                                 <i class="">Ckech</i>
+                                 </a>
+                              </div>
+                           </td>
+                        </tr>
+              
+               {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+
+{% endblock %}

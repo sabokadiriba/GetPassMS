@@ -1,0 +1,88 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="eng" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+
+<div class="digital-clock" style="color:green;">
+    <span class="time">
+        <span class="hours">00</span>
+        <span class="dots">:</span>
+        <span class="minutes">00</span>
+        <span class="right-side">
+            <span class="period">AM/PM</span>
+            <span class="seconds">00</span>
+        </span>
+    </span>
+    <span class="calendar">&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="day-name">Day</span>,
+        <span class="month-name">Month</span>
+        <span class="day-number">00</span>  
+        <span class="year">0000</span> &nbsp;&nbsp;
+    </span>
+</div>
+
+ <script>
+            // to gate current time in javascripts
+
+            function clock(){
+                var today=new Date()
+                var hours = today.getHours();
+                var minutes = today.getMinutes();
+                var seconds = today.getSeconds();
+                let period = "AM";
+                //set the time period (AM/PM) 
+                if(hours >= 12){
+                    period = "PM";
+                }
+
+                //set the 12-hourclock format
+
+                 hours = hours > 12 ? hours % 12 : hours
+
+                 //add the 0 for values lower than 10
+
+                 if(hours < 10){
+                    hours = "0" + hours;
+                }
+
+                if(minutes < 10){
+                    minutes = "0" + minutes;
+                }
+
+                if(seconds < 10){
+                    seconds = "0" + seconds;
+                }
+
+
+                document.querySelector(".hours").innerHTML = hours;
+                document.querySelector(".minutes").innerHTML = minutes;
+                document.querySelector(".period").innerHTML = period;
+                document.querySelector(".seconds").innerHTML = seconds;
+            }
+            var updateClck=setInterval(clock,1000);
+
+            // Get the dtae in javascript
+
+            var today=new Date();
+
+            const dayNumber=today.getDate();
+            const year=today.getFullYear();
+            const dayName=today.toLocaleString("default", {weekday: "long"});
+            const monthName=today.toLocaleString("default", {month: "short"});
+            document.querySelector(".month-name").innerHTML = monthName;
+            document.querySelector(".day-name").innerHTML = dayName;
+            document.querySelector(".day-number").innerHTML = dayNumber;
+            document.querySelector(".year").innerHTML = year; 
+        </script
+  
+
+
+
+</body>
+</html>

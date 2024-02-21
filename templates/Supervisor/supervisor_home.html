@@ -1,0 +1,131 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block body %}
+
+<div class="row">
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+       <div class="card bg-one w-100">
+          <div class="card-body">
+             <div class="db-widgets d-flex justify-content-between align-items-center">
+                <div class="db-icon">
+                   <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="db-info">
+                   <h3>{{total_Request}}</h3>
+                   <h6>Toltal request</h6>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+       <div class="card bg-two w-100">
+          <div class="card-body">
+             <div class="db-widgets d-flex justify-content-between align-items-center">
+                <div class="db-icon">
+                   <i class="fas fa-crown"></i>
+                </div>
+                <div class="db-info">
+                    <h3>{{total_approved_visitor}}</h3>
+                    <h6>Toltal Approved Visitor</h6>
+                  
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+       <div class="card bg-three w-100">
+          <div class="card-body">
+             <div class="db-widgets d-flex justify-content-between align-items-center">
+                <div class="db-icon">
+                   <i class="fas fa-building"></i>
+                </div>
+                <div class="db-info">
+                    <h3>{{total_badge}}</h3>
+                   <h6>Badge</h6>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="col-xl-6 col-sm-6 col-12 d-flex">
+       <div class="card bg-four w-100">
+          <div class="card-body">
+             <div class="db-widgets d-flex justify-content-between align-items-center">
+                <div class="db-icon">
+                   <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="db-info">
+                   <h3>{{total_Pending_Request}}</h3>
+                   <h6>Total pending Request</h6>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+
+ <div class="row">
+    <div class="col-sm-12">
+       <div class="card card-table">
+          <div class="card-body">
+             <div class="table-responsive">
+                <table id="mytable" class="table table-hover table-center mb-0 datatable">
+                   <thead>
+                      <tr>
+                         
+                         <th> Guest Name</th>
+                         <th>Email</th>
+                         <th>Phone</th>
+                         <th>Request Date</th>
+                         <th>Purpose of Visit</th>
+                         <th>Responsible Person</th>
+                         <th>Request Status</th>
+                         <th>Feedback</th>
+                        
+                      </tr>
+                   </thead>
+                   <tbody>
+                  
+                   {% for i in requests %}
+                   
+                   
+                      <tr>
+                         
+                         <td>{{i.guest_name}}</td>
+                         <td>{{i.email}}</td>
+                         <td>{{i.phone}}</td>
+                         <td>{{i.date_of_visit}}</td>
+                         <td>{{i.purpose_of_visit}}</td>
+                         <td>{{i.responsible_person}}</td>
+                         <td>{{i.approval_status}}</td>
+                         <td>{{i.feedback}}</td>    
+                         
+                      </tr>
+                  
+                  {% endfor %}
+                  {% for i in invitations %}
+      
+                      <tr>                      
+                         <td>{{i.guest_name}}</td>
+                         <td>{{i.email}}</td>
+                         <td>{{i.phone}}</td>
+                         <td>{{i.date_of_visit}}</td>
+                         <td>{{i.purpose_of_visit}}</td>
+                         <td>{{i.responsible_person}}</td>
+                         <td>{{i.approval_status}}</td>
+                         <td>{{i.feedback}}</td>                           
+                      </tr>                 
+                  {% endfor %}
+                 
+                 
+                   </tbody>
+                </table>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+{% endblock %} 

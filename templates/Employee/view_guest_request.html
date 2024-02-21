@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="page-header">
+    <div class="row align-items-center">
+       <div class="col">
+          <h3 class="page-title">Requests</h3>
+           {% include 'includes/messages.html' %}
+          <ul class="breadcrumb">
+             <li class="breadcrumb-item active">View requests</li>
+          </ul>
+       </div>
+
+    </div>
+ </div>
+ <div class="row">
+   <div class="col-md-12">
+      <div>
+         <ul class="nav nav-tabs nav-tabs-solid">
+            <li class="nav-item">
+               <a class="nav-link active" data-toggle="tab" href="#all_request_tab">All Request</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" data-toggle="tab" href="#pending_request_tab">Pending</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" data-toggle="tab" href="#approved_request_tab">approved</a>
+            </li>
+         </ul>
+      </div>
+      <div class="tab-content profile-tab-cont">
+         <div class="tab-pane fade show active" id="all_request_tab">
+            <div class="row">
+               <div class="col-sm-12">
+                  <div class="card card-table">
+                     <div class="card-body">
+                        <div class="table-responsive">
+                           <table id="mytable" class="table table-hover table-center mb-0 datatable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th> Guest Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Request Date</th>
+                                    <th>Purpose of Visit</th>
+                                    <th>Responsible Person</th>
+                                    <th>Request Status</th>
+                                    <th>Feedback</th>
+                                   
+                                 </tr>
+                              </thead>
+                              <tbody>
+                             
+                              {% for i in requests %}
+                              {% if i.responsible_person == request.user.first_name|add:' '|add:request.user.last_name %}
+                             
+                              
+                                 <tr>
+                                    <td>{{i.id}}</td>
+                                    <td>{{i.guest_name}}</td>
+                                    <td>{{i.email}}</td>
+                                    <td>{{i.phone}}</td>
+                                    <td>{{i.date_of_visit}}</td>
+                                    <td>{{i.purpose_of_visit}}</td>
+                                    <td>{{i.responsible_person}}</td>
+                                    <td>{{i.approval_status}}</td>
+                                    <td>{{i.feedback}}</td>    
+                                    
+                                 </tr>
+                             {% endif %}
+                             {% endfor %}
+                            
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="pending_request_tab" class="tab-pane fade">
+            <div class="row">
+               <div class="col-sm-12">
+                  <div class="card card-table">
+                     <div class="card-body">
+                        <div class="table-responsive">
+                           <table id="mytable" class="table table-hover table-center mb-0 datatable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th> Guest Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Request Date</th>
+                                    <th>Purpose of Visit</th>
+                                    <th>Responsible Person</th>
+                                    <th>Request Status</th>
+                                    <th>Feedback</th>
+                                    <th class="text-right">Action</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in requests %}
+                              {% if i.responsible_person == request.user.first_name|add:' '|add:request.user.last_name %}
+                               {% if i.approval_status == "pending" %} 
+                                 <tr>
+                                    <td>{{i.id}}</td>
+                                    <td>{{i.guest_name}}</td>
+                                    <td>{{i.email}}</td>
+                                    <td>{{i.phone}}</td>
+                                    <td>{{i.date_of_visit}}</td>
+                                    <td>{{i.purpose_of_visit}}</td>
+                                    <td>{{i.responsible_person}}</td>
+                                    <td>{{i.approval_status}}</td>
+                                    <td>{{i.feedback}}</td>    
+                                     <td class="text-right">
+                                       <div>
+                                          <a href="{% url 'manage_guest_request' i.id %}" class="btn btn-success mr-2">
+                                          <i class="">Manage</i>
+                                          </a>
+                                          
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 {% endif %}
+                                 {% endif %}
+                             {% endfor%}
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="approved_request_tab" class="tab-pane fade">
+            <div class="row">
+               <div class="col-sm-12">
+                  <div class="card card-table">
+                     <div class="card-body">
+                        <div class="table-responsive">
+                           <table id="mytable" class="table table-hover table-center mb-0 datatable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th> Guest Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Request Date</th>
+                                    <th>Purpose of Visit</th>
+                                    <th>Responsible Person</th>
+                                    <th>Request Status</th>
+                                    <th>Feedback</th>
+                                   
+                                 </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in requests %}
+                              {% if i.responsible_person == request.user.first_name|add:' '|add:request.user.last_name %}
+                               {% if i.approval_status == "approved" %} 
+                                 <tr>
+                                    <td>{{i.id}}</td>
+                                    <td>{{i.guest_name}}</td>
+                                    <td>{{i.email}}</td>
+                                    <td>{{i.phone}}</td>
+                                    <td>{{i.date_of_visit}}</td>
+                                    <td>{{i.purpose_of_visit}}</td>
+                                    <td>{{i.responsible_person}}</td>
+                                    <td>{{i.approval_status}}</td>
+                                    <td>{{i.feedback}}</td> 
+                                    <td class="text-right">
+                                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">
+                                          Deligate Role
+                                        </button>
+                                    </td>   
+                                     
+                                 </tr>
+                                 {% endif %}
+                                 {% endif %}
+                             {% endfor%}
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+<!-- Button trigger modal -->
+
+ 
+ <!-- Modal -->
+ {% for i in requests %}
+{% if i.responsible_person == request.user.first_name|add:' '|add:request.user.last_name %}
+{% if i.approval_status == "approved" %} 
+ <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Deligate {{i.guest_name}}: </h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <form method="POST" action="{% url 'deligate' %}" enctype="multipart/form-data">
+         {% csrf_token %}
+        
+          {% include 'includes/messages.html' %}
+       <div class="modal-body">
+         <div class="col-sm-11">
+            <div class="form-group">
+               
+               <input type="text" value="{{i.id}}" class="form-control" name="request_id" hidden>
+            </div>
+         </div>       
+         <div class="col-sm-11">
+            <div class="form-group">
+                <label>Delegate role to:</label>
+                <select class="form-control"  name="responsible_person">
+                    <option value="">Select Employee</option>
+                    {% for employee in employees %}
+                        <option value="{{ employee.id }}">{{ employee.customizeduser.first_name }} {{ employee.customizeduser.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+       </div>
+       <div class="modal-footer">
+         
+         <button type="submit" class="btn btn-primary">Save changes</button>
+       </div>
+       </form>
+     </div>
+   </div>
+ </div>
+
+ {% endif %}
+ {% endif %}
+{% endfor%}
+
+
+{% endblock %}

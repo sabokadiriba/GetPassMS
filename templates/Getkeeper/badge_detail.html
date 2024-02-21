@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block body %}
+
+{% load static %}
+ <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card border border-2 shadow:lg">
+                        <div class="card-body">
+                           {% for i in deteil1 %} 
+                           <form method="POST" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                               
+                                 {% include 'includes/messages.html' %}
+                                 
+                                 
+                                 <div class="row">
+                                    
+                                    <div class="col-sm-6 bg-dark">
+                                       <div class="form-group p-20">
+                                          {% if i.badge_id.approval_status == "approved" %} 
+                                           <center> <img src="{% static 'img/Success.png' %}"  alt="Logo"></center>
+                                          {% else %} 
+                                          <center> <img src="{% static 'img/notA.png' %}"  style="height: fit-content; width: fit-content;" alt="Logo" ></center>
+                                        
+                                         {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                  
+                                  
+                                    <div class="col-sm-6">
+                                       <div class="col-sm-11">
+                                          <div class="form-group">
+                                             <label>Guest Name</label>
+                                             <input type="text" class="form-control" value="{{i.badge_id.guest_name}}"  name="guest_name" disabled>
+                                          </div>
+                                       </div>
+                                       <div class="col-sm-11">
+                                          <div class="form-group">
+                                             <label>Identification card </label>
+                                             <img src="/{{i.badge_id.identification_card}}" alt="Identification Card Image" class="img-fluid" style="height: 5cm; width: 8cm;">
+                                           </div>
+                                       </div>  
+                                       <div class="col-sm-11">
+                                          <div class="form-group">
+                                             <label>Responsible Person</label>
+                                             <input class="form-control" value="{{i.badge_id.responsible_person}}" name="department" disabled/>                                                  
+                                          </div>
+                                       </div>  
+                                    </div>
+                                   
+                               
+                                
+                                 <div class="row">
+                                       <div class="col-6 ">
+                                        <center><button type="submit" name="disapprove" class="btn btn-primary">Cancel</button></center>  
+                                       </div>                             
+                                 </div>
+            
+                           </form>
+
+                           {% endfor %}
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+{% endblock %}
